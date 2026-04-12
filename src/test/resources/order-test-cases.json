@@ -1,0 +1,23 @@
+[
+  {
+    "orderId": "ORD-JSON-1001",
+    "customerId": "cust-json-a",
+    "amount": 150.25,
+    "expectedStatus": "ACCEPTED",
+    "description": "JSON: amount > 0"
+  },
+  {
+    "orderId": "ORD-JSON-1002",
+    "customerId": "cust-json-b",
+    "amount": 0,
+    "expectedStatus": "REJECTED",
+    "description": "JSON: amount equals zero"
+  },
+  {
+    "orderId": "ORD-JSON-1003",
+    "customerId": "cust-json-c",
+    "amount": null,
+    "expectedStatus": "REJECTED",
+    "description": "JSON: null amount"
+  }
+]
