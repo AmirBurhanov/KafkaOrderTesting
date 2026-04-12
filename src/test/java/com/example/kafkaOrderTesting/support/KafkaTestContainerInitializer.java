@@ -6,10 +6,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.kafkaOrderTesting.AbstractKafkaIntegrationTest;
 
-/**
- * Starts Kafka before the Spring context binds Kafka clients, so producers/consumers do not hammer
- * a broker that is not listening yet (avoids endless {@code NetworkClient} reconnect warnings).
- */
 public class KafkaTestContainerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 	@Override
