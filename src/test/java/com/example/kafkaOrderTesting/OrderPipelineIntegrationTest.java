@@ -26,10 +26,7 @@ import com.example.kafkaOrderTesting.model.OrderStatus;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Все интеграционные сценарии в одном классе: один {@code @Testcontainers}-цикл на JVM (два класса с общим
- * статическим контейнером иногда приводили к повторному ContainerLaunch и падению Docker).
- */
+
 @Execution(ExecutionMode.CONCURRENT)
 class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 

@@ -43,7 +43,6 @@ public abstract class AbstractKafkaIntegrationTest {
 	@Autowired
 	private ProcessedOrderResultSink processedOrderResultSink;
 
-	/** Для {@link com.example.kafkaOrderTesting.support.KafkaTestContainerInitializer} (другой пакет). */
 	public static KafkaContainer kafkaContainer() {
 		return KAFKA;
 	}
