@@ -20,7 +20,6 @@
     
     <properties>
         <java.version>17</java.version>
-        <!-- Surefire / forked test JVM: quieter CDS warning; JDK 21+ profile adds ByteBuddy-friendly flag -->
         <argLine>-Xshare:off</argLine>
     </properties>
     
@@ -95,14 +94,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- One JVM for Kafka + Spring: avoids overlapping Testcontainers / contexts. Parallelism stays in JUnit (junit-platform.properties). -->
                     <parallel>none</parallel>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <!-- JDK 21+: Mockito/ByteBuddy attach without "dynamic agent" warnings -->
     <profiles>
         <profile>
             <id>jdk21-test-jvm-flags</id>
