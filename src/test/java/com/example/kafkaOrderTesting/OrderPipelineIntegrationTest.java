@@ -16,8 +16,6 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.example.kafkaOrderTesting.dto.OrderTestCaseRecord;
 import com.example.kafkaOrderTesting.model.OrderEvent;
@@ -30,8 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Execution(ExecutionMode.CONCURRENT)
 class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 
-	private static final Logger log = LoggerFactory.getLogger(OrderPipelineIntegrationTest.class);
-
 	private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
 
 	@Test
@@ -39,7 +35,6 @@ class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 	void spring_context_and_kafka_are_wired() {
 		Assertions.assertNotNull(kafkaTemplate());
 		Assertions.assertNotNull(orderResultSink());
-		log.info("REPORT: spring_context_and_kafka_are_wired PASSED");
 	}
 
 	static Stream<Arguments> pipelineCases() {
@@ -73,7 +68,7 @@ class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 		Assertions.assertEquals(OrderStatus.ACCEPTED, result.getStatus());
 		Assertions.assertEquals(orderId, result.getOrderId());
 		Assertions.assertNull(result.getReason());
-		log.info("REPORT: positive_order_is_accepted PASSED for orderId={}, status={}", orderId, result.getStatus());
+
 	}
 
 	@Test
@@ -87,8 +82,6 @@ class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 		Assertions.assertEquals(OrderStatus.REJECTED, result.getStatus());
 		Assertions.assertEquals(orderId, result.getOrderId());
 		Assertions.assertNotNull(result.getReason());
-		log.info("REPORT: negative_order_is_rejected PASSED for orderId={}, status={}, reason={}",
-				orderId, result.getStatus(), result.getReason());
 	}
 
 	@ParameterizedTest(name = "{3}")
@@ -100,8 +93,6 @@ class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 
 		Assertions.assertEquals(expectedStatus, result.getStatus(), description);
 		Assertions.assertEquals(orderId, result.getOrderId());
-		log.info("REPORT: parameterized_pipeline PASSED case='{}' orderId={} expected={} actual={}",
-				description, orderId, expectedStatus, result.getStatus());
 	}
 
 	@ParameterizedTest(name = "{4}")
@@ -114,6 +105,6 @@ class OrderPipelineIntegrationTest extends AbstractKafkaIntegrationTest {
 
 		Assertions.assertEquals(expectedStatus, result.getStatus(), description);
 		Assertions.assertEquals(orderId, result.getOrderId());
-		log.info("REPORT: json_driven_pipeline PASSED description='{}' orderId={} status={}", description, orderId, result.getStatus());
+
 	}
 }
